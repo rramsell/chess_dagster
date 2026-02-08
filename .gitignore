@@ -1,0 +1,78 @@
+# Secrets / local env
+.env
+.env.*
+.envrc
+!.env.example
+git add .env.example
+
+# Python caches and artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyi
+*.pyc
+.Python
+*.egg-info/
+.eggs/
+build/
+dist/
+pip-wheel-metadata/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.uv_cache/
+.tox/
+.nox/
+.hypothesis/
+.cache/
+
+# Virtual environments
+.venv/
+.venv-*/
+.venv*/
+venv/
+env/
+ENV/
+
+# Dagster runtime/state
+.dagster_home/
+.tmp_dagster_home*/
+
+# dbt artifacts
+dbt/target/
+dbt/logs/
+dbt/dbt_packages/
+dbt/.dbt/.user.yml
+
+# Logs and temp files
+logs/
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE/editor
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Node / JS (if any)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*

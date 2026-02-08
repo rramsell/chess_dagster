@@ -1,0 +1,45 @@
+version: 2
+models:
+  - name: chesscom_game_moves
+    description: parsed chess.com moves extracted from payload.parsed_pgn.moves
+    config:
+      alias: game_moves
+      meta:
+        column_mapping:
+          varchar:
+            id: game_id
+            v->'white'->>'move': white_move
+            v->'white'->>'clock': white_clock
+            v->'black'->>'move': black_move
+            v->'black'->>'clock': black_clock
+
+          int:
+            (k): round
+
+          bigint:
+            time_control_seconds: time_control_seconds
+            time_control_increment_seconds: time_control_increment_seconds
+
+          timestamp:
+            start_dt: game_start_dt
+            end_dt: game_end_dt
+
+    columns:
+      - name: id
+        description: A unique identifier for a move round of a game
+        tests:
+          - not_null
+          - unique
+      - name: game_id
+      - name: round
+      - name: round_start_dt
+      - name: round_end_dt
+      - name: round_duration_seconds
+      - name: white_move
+      - name: black_move
+      - name: white_move_duration_seconds
+      - name: black_move_duration_seconds
+      - name: white_clock
+      - name: black_clock
+      - name: white_remaining_seconds
+      - name: black_remaining_seconds

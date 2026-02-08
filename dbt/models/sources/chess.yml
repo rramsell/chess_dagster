@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: src_chesscom
+    schema: src_chesscom
+    tables:
+      - name: archives
+      - name: games
+      - name: games_to_move
+      - name: player
+      - name: player_stats
+      - name: tournaments

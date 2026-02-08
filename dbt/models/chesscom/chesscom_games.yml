@@ -1,0 +1,83 @@
+version: 2
+models:
+  - name: chesscom_games
+    description: typed chess.com games from src_chess.games + parsed payload json
+    config:
+      alias: games
+      meta:
+        column_mapping:
+          varchar:
+            game_url: game_url
+            payload->>'uuid': uuid
+            username: username
+            payload->'parsed_pgn'->'headers'->>'Event': event
+            payload->>'time_class': time_class
+            payload->>'eco': eco
+            payload->>'fen': fen
+            payload->>'tcn': tcn
+            payload->>'rated': rated
+            payload->>'rules': rules
+            payload->>'time_control': time_control
+            payload->>'initial_setup': initial_setup
+            payload->'parsed_pgn'->>'result': result
+            payload->'parsed_pgn'->'headers'->>'Termination': termination
+            payload->'parsed_pgn'->'headers'->>'CurrentPosition': final_position
+            payload->'parsed_pgn'->'headers'->>'White': white_username
+            payload->'parsed_pgn'->'headers'->>'Black': black_username
+            payload->'parsed_pgn'->'headers'->>'StartTime': pgn_start_time
+            payload->>'tournament': tournament_url
+
+          decimal(38, 25):
+            payload->'accuracies'->>'white': white_accuracy
+            payload->'accuracies'->>'black': black_accuracy
+
+          bigint:
+            payload->'parsed_pgn'->'headers'->>'WhiteElo': white_elo
+            payload->'parsed_pgn'->'headers'->>'BlackElo': black_elo
+
+          timestamp:
+            ingested_at_utc: ingested_dt
+            to_timestamp(((payload->>'start_time')::double precision)): start_dt
+            end_time_utc: end_dt
+
+          jsonb:
+            payload->'parsed_pgn'->'moves': moves
+
+    columns:
+      - name: id
+        description: PK, represents a unique chesscom game record.
+        tests:
+          - not_null
+          - unique
+          - ratio_condition:
+              max_ratio: 0.01
+              condition: "start_dt is null or start_dt > end_dt"
+              config:
+                severity: warn
+      - name: flag_user_first_game
+      - name: flag_user_latest_game
+      - name: game_url
+      - name: uuid
+      - name: username
+      - name: event
+      - name: time_class
+      - name: eco
+      - name: fen
+      - name: tcn
+      - name: rated
+      - name: rules
+      - name: initial_setup
+      - name: result
+      - name: termination
+      - name: final_position
+      - name: white_username
+      - name: black_username
+      - name: white_elo
+      - name: black_elo
+      - name: ingested_dt
+      - name: start_dt
+      - name: end_dt
+      - name: time_control
+      - name: time_control_seconds
+      - name: time_control_increment_seconds
+      - name: moves

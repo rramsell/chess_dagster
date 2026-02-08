@@ -1,0 +1,29 @@
+name: red_lotus
+version: "1.0.0"
+config-version: 2
+
+profile: red_lotus
+
+model-paths: ["models"]
+analysis-paths: ["analysis"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+test-paths: ["tests"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+models:
+  red_lotus:
+    +materialized: table
+    +meta:
+      dagster:
+        auto_materialize_policy: eager
+    +dbt-osmosis: "{model}.yml"
+
+dispatch:
+  - macro_namespace: dbt
+    search_order: [red_lotus, dbt]

@@ -1,0 +1,59 @@
+version: 2
+models:
+  - name: chesscom_player_snapshot
+    description: >-
+      A model that captures every ingestion ts for a
+      given player (ingestion typically runs hourly).
+    config:
+      alias: player_snapshot
+      meta:
+        column_mapping:
+          varchar:
+            username: username
+            payload->>'player_id': player_id
+            payload->>'@id': api_id
+            payload->>'url': url
+            payload->>'name': name
+            payload->>'avatar': avatar
+            payload->>'league': league
+            payload->>'status': status
+            split_part(payload->>'country','/',-1): country
+
+          boolean:
+            payload->'is_streamer': is_streamer
+            payload->'verified': verified
+
+          bigint:
+            payload->'followers': followers
+
+          timestamp:
+            ingested_at_utc: ingested_dt
+            (to_timestamp(cast(payload->'joined' as bigint)) at time zone 'utc'): joined_dt
+            (to_timestamp(cast(payload->'last_online' as bigint)) at time zone 'utc'): last_online_dt
+
+          jsonb:
+            payload->'streaming_platforms': streaming_platforms
+
+    columns:
+      - name: id
+        description: A unique identifier for each player snapshot ingestion record.
+        tests:
+          - not_null
+          - unique
+      - name: username
+      - name: player_id
+      - name: api_id
+      - name: url
+      - name: name
+      - name: avatar
+      - name: league
+      - name: status
+      - name: country
+      - name: is_streamer
+      - name: verified
+      - name: followers
+      - name: ingested_dt
+      - name: joined_dt
+      - name: last_online_dt
+      - name: streaming_platforms
+      - name: flag_latest_snapshot

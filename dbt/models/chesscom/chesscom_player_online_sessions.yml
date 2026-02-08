@@ -1,0 +1,26 @@
+version: 2
+models:
+  - name: chesscom_player_online_sessions
+    description: Tracks online session activity of each user on chess.com.
+    config:
+      alias: player_online_sessions
+
+    columns:
+      - name: id
+        description: A unique identifier of a player session record.
+        tests:
+          - not_null
+          - unique
+      - name: username
+        tests:
+          - not_null
+      - name: session_id
+        description: A unique identifier on the user level of an online session.
+        tests:
+          - not_null
+      - name: session_start_dt
+        description: The time the user's session began (adds small padding, see sql)
+      - name: session_end_dt
+        description: The time the user's session began (adds small padding, see sql)
+      - name: session_duration_seconds
+        description: The duration of the user's session (adds small padding, see sql)

@@ -1,0 +1,28 @@
+version: 2
+models:
+  - name: chesscom_player_current
+    description: The most recent snapshot ingested of a chess.com users' profile.
+    config:
+      alias: player
+
+    columns:
+      - name: username
+        description: The unique chess.com id for a player.
+        tests:
+          - not_null
+          - unique
+      - name: player_id
+      - name: api_id
+      - name: url
+      - name: name
+      - name: avatar
+      - name: league
+      - name: status
+      - name: country
+      - name: is_streamer
+      - name: verified
+      - name: followers
+      - name: ingested_dt
+      - name: joined_dt
+      - name: last_online_dt
+      - name: streaming_platforms

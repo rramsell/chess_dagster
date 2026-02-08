@@ -1,0 +1,26 @@
+[project]
+name = "chess-dagster"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+  "aiohttp==3.13.3",
+  "chess-guru==0.1.2",
+  "dagster==1.12.12",
+  "dagster-dbt==0.28.12",
+  "dagster-webserver==1.12.12",
+  "dbt-core==1.9.1",
+  "dbt-postgres==1.9.1",
+  "psycopg2-binary==2.9.11",
+  "python-dotenv==1.2.1",
+  "pyyaml==6.0.3",
+  "sqlalchemy==2.0.46",
+]
+
+[project.optional-dependencies]
+tools = [
+  "dbt-osmosis[workbench,duckdb]==1.2.2",
+]
+
+[tool.dagster]
+module_name = "dagster.definitions"
+code_location_name = "chess_dagster"

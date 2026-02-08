@@ -1,0 +1,30 @@
+version: 2
+models:
+  - name: chesscom_game_archives
+    description: >-
+      A model with a record per chess.com user with the latest
+      list of archives that have games of theirs.
+    config:
+      alias: game_archives
+      meta:
+        column_mapping:
+          varchar:
+            username: username
+
+          timestamp:
+            ingested_at_utc: ingested_dt
+
+          jsonb:
+            payload: payload
+
+    columns:
+      - name: id
+        description: A unique identifier for a users chess.com game archive record.
+        tests:
+          - not_null
+          - unique
+      - name: username
+      - name: ingested_dt
+      - name: archive_url
+      - name: archive_month
+      - name: flag_most_recent_archive

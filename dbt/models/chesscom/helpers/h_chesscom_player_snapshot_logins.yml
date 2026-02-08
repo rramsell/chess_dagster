@@ -1,0 +1,25 @@
+version: 2
+models:
+  - name: h_chesscom_player_snapshot_logins
+    description: Simply tracks 1 record per player login for chess.com
+    config:
+      alias: player_snapshot_logins
+      meta:
+        column_mapping:
+          varchar:
+            id: id
+            username: username
+
+          timestamp:
+            last_online_dt: start_dt
+            last_online_dt: end_dt
+
+    columns:
+      - name: id
+        description: A unique identifier for a player snapshot record
+        tests:
+          - not_null
+          - unique
+      - name: username
+      - name: start_dt
+      - name: end_dt
