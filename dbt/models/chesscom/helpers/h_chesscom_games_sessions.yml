@@ -1,0 +1,18 @@
+version: 2
+models:
+  - name: h_chesscom_games_sessions
+    description: The logins/sessions for a given player across game time classes.
+    config:
+      alias: h_games_sessions
+
+    columns:
+      - name: id
+        description: ''
+        tests:
+          - not_null
+          - unique
+      - name: username
+        tests:
+          - not_null
+      - name: start_dt
+      - name: end_dt

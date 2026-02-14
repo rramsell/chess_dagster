@@ -1,9 +1,27 @@
 version: 2
 models:
-  - name: chesscom_game_moves
+  - name: h_chesscom_daily_game_moves
     description: parsed chess.com moves extracted from payload.parsed_pgn.moves
     config:
-      alias: game_moves
+      alias: h_daily_game_moves
+      meta:
+        column_mapping:
+          varchar:
+            id: game_id
+            username: username
+            v->'white'->>'move': white_move
+            v->'white'->>'clock': white_clock
+            v->'black'->>'move': black_move
+            v->'black'->>'clock': black_clock
+
+          int:
+            (k): round
+
+          bigint:
+            time_control_seconds: time_control_seconds
+
+          timestamp:
+            end_dt: game_end_dt
 
     columns:
       - name: id
@@ -12,6 +30,7 @@ models:
           - not_null
           - unique
       - name: game_id
+      - name: username
       - name: round
       - name: flag_first_round
       - name: flag_last_round
@@ -26,3 +45,4 @@ models:
       - name: black_clock
       - name: white_remaining_seconds
       - name: black_remaining_seconds
+    

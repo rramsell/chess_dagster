@@ -1,5 +1,4 @@
 {% set column_mapping = model.config.get("meta") %}
-{% set cols = meta_columns(column_mapping) %}
 
 with ordered as (
         select 
@@ -11,6 +10,10 @@ with ordered as (
         from {{ ref("chesscom_player_snapshot") }}
         where last_online_dt is not null
     )
-select {{ cols | join(", ") }}
+select
+    id,
+    username,
+    last_online_dt as start_dt,
+    last_online_dt as end_dt
 from ordered
 where rn = 1

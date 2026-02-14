@@ -7,7 +7,7 @@ with player_and_game_sessions as (
         {{ dbt_utils.union_relations(
             relations=[
             ref('h_chesscom_player_snapshot_logins'),
-            ref('chesscom_games')
+            ref('h_chesscom_games_sessions')
             ],
             include=['id', 'username', 'start_dt', 'end_dt']
         ) }}
