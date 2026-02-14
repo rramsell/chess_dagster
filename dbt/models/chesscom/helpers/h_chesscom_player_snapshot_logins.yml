@@ -11,8 +11,7 @@ models:
             username: username
 
           timestamp:
-            last_online_dt: start_dt
-            last_online_dt: end_dt
+            last_online_dt: last_online_dt
 
     columns:
       - name: id

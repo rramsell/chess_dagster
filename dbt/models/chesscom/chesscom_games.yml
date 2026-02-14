@@ -76,7 +76,9 @@ models:
       - name: black_elo
       - name: ingested_dt
       - name: start_dt
+        description: The supposed start time for a given game, often unreliable for daily games.
       - name: end_dt
+        description: The end time for a given game.
       - name: time_control
       - name: time_control_seconds
       - name: time_control_increment_seconds
