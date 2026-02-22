@@ -32,7 +32,7 @@ automation_condition_sensor = AutomationConditionSensorDefinition(
     name="default_automation_condition_sensor",
     target=AssetSelection.all(),
     default_status=DefaultSensorStatus.RUNNING,
-    minimum_interval_seconds=60 * 60,
+    minimum_interval_seconds=60 * 5,
 )
 sensors = [automation_condition_sensor, chesscom_new_games_sensor]
 jobs = [
